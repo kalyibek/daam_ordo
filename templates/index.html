@@ -20,8 +20,9 @@
                     <ul class="header__list">
                         <li><a href="#1" class="header__link logo">Daam-ORDO</a></li>
                         <li><a href="#4" class="header__link">Доставка</a></li>
-                        <li><a href="#4" class="header__link log-in">Вход</a></li>
+                        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
                         <li><a href="tel:+996553031817" class="header__link telephone">Позвонить</a></li>
+                        <li><a href="{% url 'sign_out' %}" class="header__link log-in">log out</a></li>
                     </ul>
                 </div>
             </div>
@@ -76,7 +77,7 @@
         </div>
     </aside>
 </body>
-<scrih1t src="js/index.js"></script>
+<script src="js/index.js"></script>
 <script src="js/script.js"></script>
 <script src="js/swiper-bundle.min.js"></script>
 </html>
