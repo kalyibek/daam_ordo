@@ -17,6 +17,7 @@ class FoodType(models.Model):
 
 class Food(models.Model):
     name = models.CharField(max_length=100)
+    type = models.ForeignKey(FoodType, on_delete=models.CASCADE, related_name='food', null=True)
     image = models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT), null=True)
     compound = models.CharField(max_length=500)
     weight = models.PositiveSmallIntegerField()
