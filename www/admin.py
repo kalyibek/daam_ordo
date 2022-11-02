@@ -4,3 +4,4 @@ from . import models
 
 admin.site.register(models.FoodType)
 admin.site.register(models.Food)
+admin.site.register(models.Drink)

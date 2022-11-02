@@ -25,3 +25,13 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Drink(models.Model):
+    name = models.CharField(max_length=50)
+    weight = models.PositiveSmallIntegerField()
+    image = models.ImageField(upload_to=os.path.join(settings.MEDIA_ROOT), null=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return self.name

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>admin</title>
+{% endblock %}
+
+{% block check_user %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'admin' %}" class="header__link log-in">Администрация</a></li>
+        <li class="li-link"><a href="{% url 'sign_out' %}" class="header__link log-in">Выход</a></li>
+    {% else %}
+        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<aside>
+    <div class="container">
+        <div class="left">
+            <form action="{% url 'admin' %}" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="food-form">
+                    <div class="food-form-head foodForm">
+                        <h3>Добавить</h3>
+                    </div>
+                    <div class="food-form-name foodForm">
+                        <h5>Название:</h5>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="food-form-type foodForm">
+                        <h5>Тип блюда:</h5>
+                        <select name="type" required>
+                            {% for type in food_types %}
+                            <option value="{{ type.id }}" name="city">{{ type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="food-form-image foodForm">
+                        <h5>Фото:</h5>
+                        <div class="image-food-form">
+                            <div class="change">
+                                <h6>Change:</h6>
+                                <div class="changes">
+                                    <input type="file" name="image" placeholder="" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="food-form-compound foodForm">
+                        <h5>Состав:</h5>
+                        <input type="text" name="compound">
+                    </div>
+                    <div class="food-form-weight foodForm">
+                        <h5>Вес:</h5>
+                        <input type="text" name="weight">
+                    </div>
+                    <div class="food-form-price foodForm">
+                        <h5>Цена:</h5>
+                        <input type="text" name="price">
+                    </div>
+                    <div class="btn">
+                        <button type="submit" style="padding: 0.5em 1em; background: #df8222; border-radius: 15px; border: none; margin-left: 22px;">
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="right">
+            <div class="right-catalog">
+                <div class="row">
+                    {% for food in foods %}
+                    <div class="col-md-3">
+                        <div class="catalog">
+                            <div class="catalog-card">
+                                <a href="{% url 'update_dood' food.id %}"><img src="{{ food.image.url }}" alt=""></a>
+                            </div>
+                            <div class="catalog-text">
+                                <a href="{% url 'update_dood' food.id %}"><h3>{{ food.name }}</h3></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+{% endblock %}

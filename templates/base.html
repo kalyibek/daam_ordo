@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Document</title>
+    {% endblock %}
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__body">
+            <button class="header__hamburger">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="header__menu">
+                <ul class="header__list">
+                    <li><a href="{% url 'index' %}" class="header__link logo">Daam-ORDO</a></li>
+                    <li><a href="#" class="header__link">Доставка</a></li>
+                    {% block check_user %}{% endblock %}
+                    <li><a href="tel:+996553031817" class="header__link telephone">Позвонить</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+{% block content %}{% endblock %}
+</body>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+</html>

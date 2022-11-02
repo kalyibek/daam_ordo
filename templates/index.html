@@ -1,84 +1,57 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% block title %}
+<title>index</title>
+{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header class="header">
-        <div class="container">
-            <div class="header__body">
-                <button class="header__hamburger">
-                    <span></span><span></span><span></span>
-                </button>
-                <div class="header__menu">
-                    <ul class="header__list">
-                        <li><a href="#1" class="header__link logo">Daam-ORDO</a></li>
-                        <li><a href="#4" class="header__link">Доставка</a></li>
-                        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
-                        <li><a href="tel:+996553031817" class="header__link telephone">Позвонить</a></li>
-                        <li><a href="{% url 'sign_out' %}" class="header__link log-in">log out</a></li>
-                    </ul>
-                </div>
-            </div>
+{% block check_user %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'admin' %}" class="header__link log-in">Администрация</a></li>
+        <li class="li-link"><a href="{% url 'sign_out' %}" class="header__link log-in">Выход</a></li>
+    {% else %}
+        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<aside class="aside">
+    <div class="container">
+        <div class="left " style="padding: 0 2em 0;">
+            <ul class="left-list" style="padding: 0;">
+                <li>
+                    <a class="li-link" href="#">Акции</a>
+                </li>
+                {% for type in types %}
+                <li>
+                    <a class="li-link" href="{% url 'sort' type.id %}">{{ type.name }}</a>
+                </li>
+                {% endfor %}
+                <li>
+                    <a class="li-link" href="{% url 'drinks' %}">Напитки</a>
+                </li>
+            </ul>
         </div>
-    </header>
-
-    <aside class="aside">
-        <div class="container">
-            <div class="left sides">
-                <ul class="left-list">
-                    <li>
-                        <a class="li-link" href="#">Акции</a>
-                    </li>
-                    <li>
-                        <a class="li-link" href="#">Салаты</a>
-                    </li>                    
-                    <li>
-                        <a class="li-link" href="#">Завтраки</a>
-                    </li>                    
-                    <li>
-                        <a class="li-link" href="#">Первые блюда</a>
-                    </li>                       
-                    <li>
-                        <a class="li-link" href="#">Вторые блюда</a>
-                    </li>                
-                    <li>
-                        <a class="li-link" href="#">Напитки</a>
-                    </li>
-                    <li>
-                        <a class="li-link" href="#">Соусы</a>
-                    </li>
-                    <li>
-                        <a class="li-link" href="#">Выпечка</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="right sides">
-                <div class="catalog">
+        <div class="right">
+            <div class="right-catalog">
+                <div class="row">
                     {% for food in foods %}
-                        <div class="catalog-card">
-                            <a href="#"><img src="{{ food.image.url }}" alt=""></a>
+                    <div class="col-md-3">
+                        <div class="catalog">
+                            <div class="catalog-card">
+                                <a href="#"><img src="{{ food.image.url }}" alt=""></a>
+                            </div>
+                            <div class="catalog-text">
+                                <a href="#"><h3>{{ food.name }}</h3></a>
+                            </div>
                         </div>
-                        <div class="catalog-text">
-                            <a href="#"><h1>{{ food.name }}</h1></a>
-                            <p>{{ food.type }}</p>
-                            <p>{{ food.compound }}</p>
-                            <p>{{ food.weight }}</p>
-                            <p>{{ food.price }}</p>
-                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-    </aside>
-</body>
-<script src="js/index.js"></script>
-<script src="js/script.js"></script>
-<script src="js/swiper-bundle.min.js"></script>
-</html>
+    </div>
+</aside>
+<nav>
+
+</nav>
+{% endblock %}

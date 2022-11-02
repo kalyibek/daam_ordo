@@ -267,7 +267,6 @@
   color: rgba(0, 0, 0, 0.882);
 }
 .header__link:hover {
-  font-weight: bold;
   color: #df8222;
   transition: 0.5s;
 }
@@ -280,15 +279,11 @@
   padding: 0;
   margin: 0;
   font-family: "Montserrat";
-  font-weight: bolder;
 }
 
 html, body {
   height: 100%;
   box-sizing: border-box;
-  background: url("../img/wallparers.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 a {
@@ -315,24 +310,25 @@ a {
 }
 
 aside {
-  max-width: 1200px;
-  margin: 100px auto;
-  padding: 0 20px;
+  padding: 63.5px 20px;
+  background: url("../img/wallparers.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 750px;
 }
 aside .container {
   display: flex;
   color: #fff;
 }
 
-.sides {
-  padding: 1em;
-  margin-bottom: 1em;
-}
-
 .left {
   max-width: 200px;
   background: rgba(0, 0, 0, 0.75);
   margin-right: 2em;
+  max-height: 500px;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 2.5em;
 }
 
 .left-list {
@@ -346,16 +342,31 @@ aside .container {
 }
 
 .right {
-  max-width: 500px;
+  max-width: 1000px;
   background: rgba(0, 0, 0, 0.75);
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 5em;
+}
+.right .right-catalog {
+  display: flex;
+}
+.right .catalog:first-child {
+  margin-left: 0;
+}
+.right .catalog {
+  margin-left: 2em;
 }
 .right .catalog .catalog-card {
   max-width: 300px;
+  max-height: 225px;
   background: url("../img/card.jpg");
   background-size: cover;
+  border-radius: 50%;
 }
 .right .catalog .catalog-card img {
   max-width: 100%;
+  max-height: 100%;
 }
 .right .catalog .catalog-text {
   text-align: center;
@@ -365,8 +376,214 @@ aside .container {
   color: #fff;
 }
 
-@media screen and (max-width: 395px) {
-  .right {
-    height: 250px;
+@media screen and (max-width: 850px) {
+  aside .container {
+    display: flex;
+    flex-direction: column;
   }
+  .right .right-catalog {
+    display: flex;
+    flex-direction: column;
+  }
+  .catalog {
+    justify-self: center;
+    align-self: center;
+  }
+  .catalog .catalog-text {
+    margin-top: 1em;
+  }
+}
+.logins {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 32.3em;
+  background: rgba(0, 0, 0, 0.631372549);
+  padding: 0 3em;
+  border-radius: 25px;
+}
+.login h2 {
+  margin-bottom: 1em;
+}
+.login .input {
+  border: 1px black;
+  border-radius: 50px;
+}
+.login .input input {
+  padding: 5px 10px;
+  border-style: none;
+  margin-bottom: 1em;
+  border-radius: 15px;
+}
+.login .btn button {
+  padding: 0.5em 1em;
+  background: #df8222;
+  border-radius: 15px;
+  border: none;
+}
+
+.delivers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deliver {
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+  align-items: center;
+  padding: 2em;
+}
+.deliver .lefts {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.631372549);
+  padding: 2em;
+  border-radius: 25px;
+}
+.deliver .lefts .item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.deliver .lefts .item .items-image {
+  width: 5em;
+  margin-right: 3em;
+}
+.deliver .lefts .item .items-image img {
+  width: 100%;
+}
+.deliver .lefts .item .items-name {
+  margin-left: 0em;
+}
+.deliver .lefts .price-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.deliver .lefts .price-counter .counter {
+  display: flex;
+  border-radius: 25px;
+  margin-left: 2em;
+}
+.deliver .lefts .price-counter .counter .bx {
+  background: rgba(255, 255, 255, 0.487);
+}
+.deliver .lefts .price-counter .counter .bx button {
+  background: none;
+  border: none;
+  padding: 1em 2em;
+}
+.deliver .lefts .price-counter .counter .bx button:hover {
+  cursor: pointer;
+}
+.deliver .rights {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.631372549);
+  padding: 1em;
+  border-radius: 25px;
+  margin-left: 3em;
+}
+.deliver .rights .rights-name {
+  margin-bottom: 1em;
+}
+.deliver .rights .rights-prices {
+  display: flex;
+  justify-content: space-between;
+}
+.deliver .rights .rights-total {
+  margin-top: 1em;
+  padding-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.deliver .rights .rights-total .total {
+  display: flex;
+  justify-content: space-between;
+}
+.deliver .rights .rights-total .total-btn {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
+.deliver .rights .rights-total .total-btn button {
+  padding: 0.5em 1em;
+  border-radius: 25px;
+  background: #df8222;
+  border: none;
+}
+.deliver .rights .rights-total .total-btn button:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 850px) {
+  .deliver {
+    flex-direction: column;
+    padding: 0;
+    padding-bottom: 4.6em;
+  }
+  .deliver .rights {
+    margin: 0;
+    margin-top: 1em;
+  }
+}
+.shop {
+  width: 15px;
+  height: 15px;
+}
+.shop img {
+  max-width: 5%;
+  min-height: 10%;
+}
+
+.food {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.food-form {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.66);
+  padding: 1.5em;
+  border-radius: 25px;
+  justify-self: center;
+  align-self: center;
+}
+.food-form .foodForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+.food-form .food-form-head {
+  margin-bottom: 1.5em;
+}
+.food-form .food-form-image .currenly {
+  display: flex;
+  justify-content: space-between;
+}
+.food-form .food-form-image .change {
+  display: flex;
+  justify-content: space-between;
+}
+.food-form .food-form-image .change .changes {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.food-form .food-form-image .change .changes p {
+  font-size: xx-small;
 }/*# sourceMappingURL=style.css.map */
