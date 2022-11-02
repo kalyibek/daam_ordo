@@ -15,19 +15,20 @@
 {% endblock %}
 
 {% block content %}
+<aside>
     <div class="container">
-        <div class="left">
+        <div class="food-form">
             <form action="{% url 'update_dood' food.id %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
-                <div class="food-form">
-                    <div class="food-form-head foodForm">
+                <div>
+                    <div>
                         <h3>Изменить</h3>
                     </div>
-                    <div class="food-form-name foodForm">
+                    <div>
                         <h5>Название:</h5>
                         <input type="text" name="name" value="{{ food.name }}">
                     </div>
-                    <div class="food-form-type foodForm">
+                    <div>
                         <h5>Тип блюда:</h5>
                         <select name="type" required>
                             {% for type in food_types %}
@@ -35,36 +36,39 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="food-form-image foodForm">
+                    <div>
                         <h5>Фото:</h5>
                         <div class="image-food-form">
                             <div class="change">
                                 <h6>Change:</h6>
                                 <div class="changes">
-                                    <input type="file" value="{{ food.image.url }}" name="image" placeholder="" required>
+                                    <input type="file" name="image" placeholder="" required>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="food-form-compound foodForm">
+                    <div>
                         <h5>Состав:</h5>
                         <input type="text" name="compound" value="{{ food.compound }}">
                     </div>
-                    <div class="food-form-weight foodForm">
+                    <div>
                         <h5>Вес:</h5>
                         <input type="text" name="weight" value="{{ food.weight }}">
                     </div>
-                    <div class="food-form-price foodForm">
+                    <div>
                         <h5>Цена:</h5>
                         <input type="text" name="price" value="{{ food.price }}">
                     </div>
-                    <div class="btn">
-                        <button type="submit" style="padding: 0.5em 1em; background: #df8222; border-radius: 15px; border: none; margin-left: 22px;">
+                    <br>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">
                             Обновить
                         </button>
+                        <a href="{% url 'delete_food' food.id %}" class="btn btn-danger">Удалить</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+</aside>
 {% endblock %}

@@ -20,15 +20,15 @@
         <div class="left">
             <form action="{% url 'admin' %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
-                <div class="food-form">
-                    <div class="food-form-head foodForm">
+                <div>
+                    <div>
                         <h3>Добавить</h3>
                     </div>
-                    <div class="food-form-name foodForm">
+                    <div>
                         <h5>Название:</h5>
                         <input type="text" name="name">
                     </div>
-                    <div class="food-form-type foodForm">
+                    <div>
                         <h5>Тип блюда:</h5>
                         <select name="type" required>
                             {% for type in food_types %}
@@ -36,7 +36,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="food-form-image foodForm">
+                    <div>
                         <h5>Фото:</h5>
                         <div class="image-food-form">
                             <div class="change">
@@ -47,15 +47,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="food-form-compound foodForm">
+                    <div>
                         <h5>Состав:</h5>
                         <input type="text" name="compound">
                     </div>
-                    <div class="food-form-weight foodForm">
+                    <div>
                         <h5>Вес:</h5>
                         <input type="text" name="weight">
                     </div>
-                    <div class="food-form-price foodForm">
+                    <div>
                         <h5>Цена:</h5>
                         <input type="text" name="price">
                     </div>

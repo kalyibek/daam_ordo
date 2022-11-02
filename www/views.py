@@ -81,7 +81,9 @@ def update_food(request, id):
         food.type = models.FoodType.objects.get(
             id=request.POST['type']
         )
-        food.image = request.FILES['image']
+        if request.FILES.get('image', False):
+            food.image = request.FILES.get('image', False)
+
         food.compound = request.POST['compound']
         food.weight = request.POST['weight']
         food.price = request.POST['price']
@@ -93,6 +95,13 @@ def update_food(request, id):
         'food_types': food_types,
     }
     return render(request, 'food_update.html', context)
+
+
+@login_required(login_url='/login/')
+def delete_food(request, id):
+    food = models.Food.objects.get(id=id)
+    food.delete()
+    return redirect(reverse('admin'))
 
 
 def sign_user(request):
