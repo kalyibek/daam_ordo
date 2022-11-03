@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Order</title>
+{% endblock %}
+
+{% block check_user %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'admin' %}" class="header__link log-in">Администрация</a></li>
+        <li class="li-link"><a href="{% url 'sign_out' %}" class="header__link log-in">Выход</a></li>
+    {% else %}
+        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<aside>
+    <div class="container">
+        <div class="food-form">
+            <form action="#" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <h3>Подтверждение</h3>
+                    </div>
+                    <div>
+                        <h5>ФИО (необязательно):</h5>
+                        <input type="text" name="fio">
+                    </div>
+                    <div>
+                        <h5>Адрес:</h5>
+                        <input type="text" name="address">
+                    </div>
+                    <div>
+                        <h5>Номер телефона:</h5>
+                        <input type="text" name="phone">
+                    </div>
+                    <br>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-success">
+                            Оформить
+                        </button>
+                        <a href="#" class="btn btn-danger">Отменить</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</aside>
+{% endblock %}

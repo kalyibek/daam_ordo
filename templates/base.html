@@ -23,9 +23,13 @@
             <div class="header__menu">
                 <ul class="header__list">
                     <li><a href="{% url 'index' %}" class="header__link logo">Daam-ORDO</a></li>
-                    <li><a href="#" class="header__link">Доставка</a></li>
                     {% block check_user %}{% endblock %}
                     <li><a href="tel:+996553031817" class="header__link telephone">Позвонить</a></li>
+                    {% with total_items=cart|length %}
+                    {% if cart|length > 0 %}
+                        <li><a href="{% url 'cart:cart' %}" class="header__link shop">Корзина</a></li>
+                    {% endif %}
+                    {% endwith %}
                 </ul>
             </div>
         </div>

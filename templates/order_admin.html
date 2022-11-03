@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>admin orders</title>
+{% endblock %}
+
+{% block check_user %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'admin' %}" class="header__link log-in">Администрация</a></li>
+        <li class="li-link"><a href="{% url 'sign_out' %}" class="header__link log-in">Выход</a></li>
+        {% if orders %}
+        <li class="li-link"><a href="{% url 'new_orders' %}" class="header__link log-in" style="color: red;">Новые заказы</a></li>
+        {% endif %}
+    {% else %}
+        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<aside class="aside">
+    <div class="container delivers">
+       <div class="deliver">
+        <div class="lefts" style="display: flex; flex-direction: column">
+            {% if orders %}
+                {% for order in orders %}
+                <div class="item">
+                    <div class="items-name">
+                        <h4>Заказ от {{ order.fio }}</h4>
+                        {% for food_order in order.orderfood_set.all %}
+                            <h5>{{ food_order.food.name }}   -   {{ food_order.quantity }} шт.   -   {{ food_order.price }} сом.</h5>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="price-counter">
+                    <div class="counters-price">
+                        <h5>Итоговая цена: {{ order.total_price }} сом</h5>
+                        <h5>Адрес: {{ order.address }}</h5>
+                        <h5>Телефон: {{ order.phone }}</h5>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="{% url 'accept_order' order.id %}" class="btn btn-success">Принять</a>
+                    <a href="{% url 'cancel_order' order.id %}" class="btn btn-danger">Отменить</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="item">
+                    <h1>Пока нет новых заказов</h1>
+                </div>
+            {% endif %}
+        </div>
+       </div>
+    </div>
+</aside>
+{% endblock %}

@@ -5,16 +5,20 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from . import models
+from cart.forms import CartAddFoodForm
+from cart.cart import Cart
 
 
 def index(request):
     foods = models.Food.objects.all()
     types = models.FoodType.objects.all()
     drinks = models.Drink.objects.all()
+    cart_form = CartAddFoodForm()
     context = {
         'foods': foods,
         'types': types,
         'drinks': drinks,
+        'cart_form': cart_form,
     }
     return render(request, 'index.html', context)
 
@@ -37,6 +41,64 @@ def drinks_list(request):
         'types': types,
     }
     return render(request, 'index.html', context)
+
+
+def create_food_order(request):
+    if request.method == 'POST':
+        cart = Cart(request)
+
+        fio = request.POST['fio']
+        address = request.POST['address']
+        phone = request.POST['phone']
+        total_price = cart.get_total_price()
+
+        order = models.Order.objects.create(
+            fio=fio,
+            address=address,
+            phone=phone,
+            total_price=total_price,
+            status='new',
+        )
+        order.save()
+        for item in cart:
+            food = models.Food.objects.get(id=item['product'].id)
+            food_order = models.OrderFood.objects.create(
+                food=food,
+                order=order,
+                quantity=item['quantity'],
+                price=item['total_price'],
+            )
+            food_order.save()
+
+        cart.clear()
+        return redirect(reverse('index'))
+
+    return render(request, 'order.html')
+
+
+@login_required(login_url='/login/')
+def new_orders_list(request):
+    orders = models.Order.objects.filter(status='new')
+    context = {
+        'orders': orders
+    }
+    return render(request, 'order_admin.html', context)
+
+
+@login_required(login_url='/login/')
+def accept_order(request, id):
+    order = models.Order.objects.get(id=id)
+    order.status = 'paid'
+    order.save()
+    return redirect(reverse('new_orders'))
+
+
+@login_required(login_url='/login/')
+def cancel_order(request, id):
+    order = models.Order.objects.get(id=id)
+    order.status = 'canceled'
+    order.save()
+    return redirect(reverse('new_orders'))
 
 
 @login_required(login_url='/login/')
@@ -64,9 +126,11 @@ def create_food(request):
 
     food_types = models.FoodType.objects.all()
     foods = models.Food.objects.all()
+    new_orders = models.Order.objects.filter(status='new')
     context = {
         'food_types': food_types,
         'foods': foods,
+        'orders': new_orders,
     }
 
     return render(request, 'admin.html', context)
@@ -76,6 +140,7 @@ def create_food(request):
 def update_food(request, id):
     food = models.Food.objects.get(id=id)
     food_types = models.FoodType.objects.all()
+    new_orders = models.Order.objects.filter(status='new')
     if request.method == 'POST':
         food.name = request.POST['name']
         food.type = models.FoodType.objects.get(
@@ -93,6 +158,7 @@ def update_food(request, id):
     context = {
         'food': food,
         'food_types': food_types,
+        'orders': new_orders,
     }
     return render(request, 'food_update.html', context)
 
