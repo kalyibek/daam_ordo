@@ -12,6 +12,7 @@
         {% if orders %}
         <li class="li-link"><a href="{% url 'new_orders' %}" class="header__link log-in" style="color: red;">Новые заказы</a></li>
         {% endif %}
+        <li><a href="{% url 'orders_history' %}" class="header__link log-in">История заказов</a></li>
     {% else %}
         <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
     {% endif %}

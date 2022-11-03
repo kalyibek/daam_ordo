@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>admin orders history</title>
+{% endblock %}
+
+{% block check_user %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'admin' %}" class="header__link log-in">Администрация</a></li>
+        <li class="li-link"><a href="{% url 'sign_out' %}" class="header__link log-in">Выход</a></li>
+        {% if orders %}
+        <li class="li-link"><a href="{% url 'new_orders' %}" class="header__link log-in" style="color: red;">Новые заказы</a></li>
+        {% endif %}
+        <li><a href="{% url 'orders_history' %}" class="header__link log-in">История заказов</a></li>
+    {% else %}
+        <li><a href="{% url 'sign_user' %}" class="header__link log-in">Вход</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<aside class="aside">
+    <table class="table table-dark table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Заказчик</th>
+                <th>Блюда</th>
+                <th>Статус</th>
+                <th>Итоговая цена</th>
+                <th>Адрес</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in history %}
+            <tr>
+                <td>{{ order.fio }}</td>
+                <td>
+                    <ul>
+                        {% for food_order in order.orderfood_set.all %}
+                        <li>{{ food_order.food.name }}   -   {{ food_order.quantity }} шт.   -   {{ food_order.price }} сом.</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.address }}</td>
+                <td>{{ order.phone }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</aside>
+{% endblock %}

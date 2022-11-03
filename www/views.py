@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.db.models import Q
 
 from . import models
 from cart.forms import CartAddFoodForm
@@ -99,6 +100,17 @@ def cancel_order(request, id):
     order.status = 'canceled'
     order.save()
     return redirect(reverse('new_orders'))
+
+
+@login_required(login_url='/login/')
+def order_history(request):
+    new_orders = models.Order.objects.filter(status='new')
+    orders = models.Order.objects.filter(Q(status='paid') | Q(status='canceled'))
+    context = {
+        'history': orders,
+        'orders': new_orders,
+    }
+    return render(request, 'order_history.html', context)
 
 
 @login_required(login_url='/login/')
